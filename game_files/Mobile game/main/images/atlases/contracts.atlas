@@ -1,0 +1,40 @@
+images {
+  image: "/main/images/contracts/alchemy.jpg"
+}
+images {
+  image: "/main/images/contracts/carpentry.jpg"
+}
+images {
+  image: "/main/images/contracts/construction.jpg"
+}
+images {
+  image: "/main/images/contracts/education.jpg"
+}
+images {
+  image: "/main/images/contracts/farming.jpg"
+}
+images {
+  image: "/main/images/contracts/lumbering.jpg"
+}
+images {
+  image: "/main/images/contracts/mining.jpg"
+}
+images {
+  image: "/main/images/contracts/soldier.jpg"
+}
+images {
+  image: "/main/images/contracts/spying.jpg"
+}
+images {
+  image: "/main/images/contracts/strategy.jpg"
+}
+images {
+  image: "/main/images/contracts/trade.jpg"
+}
+images {
+  image: "/main/images/contracts/travel.jpg"
+}
+images {
+  image: "/main/images/contracts/treasure.jpg"
+}
+extrude_borders: 2

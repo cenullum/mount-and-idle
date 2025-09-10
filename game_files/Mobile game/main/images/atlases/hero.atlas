@@ -1,0 +1,28 @@
+images {
+  image: "/main/images/hero/blue_soldier.jpg"
+}
+images {
+  image: "/main/images/hero/blue_spy.jpg"
+}
+images {
+  image: "/main/images/hero/blue_wizard.jpg"
+}
+images {
+  image: "/main/images/hero/freen_spy.jpg"
+}
+images {
+  image: "/main/images/hero/green_soldier.jpg"
+}
+images {
+  image: "/main/images/hero/green_wizard.jpg"
+}
+images {
+  image: "/main/images/hero/red_soldier.jpg"
+}
+images {
+  image: "/main/images/hero/red_spy.jpg"
+}
+images {
+  image: "/main/images/hero/red_wizard.jpg"
+}
+extrude_borders: 2

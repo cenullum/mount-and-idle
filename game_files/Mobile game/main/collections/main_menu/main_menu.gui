@@ -1,0 +1,76 @@
+script: "/main/collections/main_menu/main_menu.gui_script"
+fonts {
+  name: "druid_text_regular"
+  font: "/druid/fonts/druid_text_regular.font"
+}
+fonts {
+  name: "always_on_top"
+  font: "/builtins/fonts/debug/always_on_top.font"
+}
+fonts {
+  name: "default"
+  font: "/builtins/fonts/default.font"
+}
+fonts {
+  name: "druid_text_bold"
+  font: "/druid/fonts/druid_text_bold.font"
+}
+textures {
+  name: "icons"
+  texture: "/main/images/atlases/icons.atlas"
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 339.0
+    y: 611.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  color {
+    x: 0.8
+    y: 0.6
+    z: 0.2
+  }
+  type: TYPE_BOX
+  texture: "icons/ui_circle_64"
+  id: "box"
+  parent: "root"
+  inherit_alpha: true
+  slice9 {
+    x: 32.0
+    y: 32.0
+    z: 32.0
+    w: 32.0
+  }
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Start\n"
+  "\n"
+  ""
+  font: "druid_text_bold"
+  id: "text"
+  parent: "box"
+  inherit_alpha: true
+  alpha: 0.7
+  outline_alpha: 0.0
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

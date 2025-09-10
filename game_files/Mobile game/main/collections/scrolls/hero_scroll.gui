@@ -1,0 +1,185 @@
+script: "/main/collections/scrolls/horizontal_scroll.gui_script"
+fonts {
+  name: "druid_text_regular"
+  font: "/druid/fonts/druid_text_regular.font"
+}
+textures {
+  name: "contracts"
+  texture: "/main/images/atlases/contracts.atlas"
+}
+textures {
+  name: "background"
+  texture: "/main/images/atlases/background.atlas"
+}
+textures {
+  name: "icons"
+  texture: "/main/images/atlases/icons.atlas"
+}
+nodes {
+  position {
+    x: 269.0
+    y: 56.0
+  }
+  size {
+    x: 1.0
+    y: 1.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 53.0
+    y: 700.0
+  }
+  size {
+    x: 600.0
+    y: 600.0
+  }
+  color {
+    x: 0.4
+    y: 0.4
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "contract_scroll"
+  parent: "root"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  size {
+    x: 2000.0
+    y: 600.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "contract_content"
+  parent: "contract_scroll"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 53.0
+    y: 172.0
+  }
+  size {
+    x: 600.0
+    y: 400.0
+  }
+  type: TYPE_BOX
+  texture: "background/level1"
+  id: "hero_scroll"
+  parent: "root"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+}
+nodes {
+  size {
+    x: 2000.0
+    y: 450.0
+  }
+  color {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  type: TYPE_BOX
+  id: "hero_content"
+  parent: "hero_scroll"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 614.0
+    y: 212.0
+  }
+  size {
+    x: 200.0
+    y: 276.0
+  }
+  type: TYPE_BOX
+  texture: "contracts/education"
+  id: "box"
+  parent: "root"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    y: 77.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "<text>"
+  font: "druid_text_regular"
+  id: "contract_name"
+  parent: "box"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 5.0
+    y: 138.0
+  }
+  size {
+    x: 64.0
+    y: 64.0
+  }
+  color {
+    x: 0.8
+    y: 0.2
+    z: 0.2
+  }
+  type: TYPE_BOX
+  texture: "icons/ui_circle_64"
+  id: "destroy_button"
+  parent: "box"
+  inherit_alpha: true
+  slice9 {
+    x: 32.0
+    y: 32.0
+    z: 32.0
+    w: 32.0
+  }
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "X"
+  font: "druid_text_regular"
+  id: "text"
+  parent: "destroy_button"
+  inherit_alpha: true
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "drag_parent"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,0 +1,10 @@
+name: "gameplay"
+scale_along_z: 0
+embedded_instances {
+  id: "go"
+  data: "components {\n"
+  "  id: \"hero_scroll\"\n"
+  "  component: \"/main/collections/scrolls/hero_scroll.gui\"\n"
+  "}\n"
+  ""
+}

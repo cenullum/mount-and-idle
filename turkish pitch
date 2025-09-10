@@ -1,0 +1,64 @@
+melvor idle ve idle clans gibi basit arayüz herşey butonlardan ibaret ama daha minimal  ekranın 5'de 3ü kontraktlar 5'de 2'si group diye geçicek  group aşağıda (group dediğim npcler işte)
+
+kırmız yeşil mavi klanlar lar npcler olabilir taş kağıt makas gibi birbirlerine karşı daha üstün olabilirler %30 kadar falan
+
+her cardın en üsütnde ismi ortasında temsili resim ve arkplanı var genelde gri şimdilik eğer zorunlu kart ise kırmızı oluyor. npc kartları şimdilik gri olsun. kontrat kartların üstünde x butonu var silmek için zorunlu değilse tabi
+
+npc kartını kontrat kartına sürükleyip bırakınca npc kartı kontrata yapışsın oraya ve aşağıya start, details ve cancel butonu gelsin. start olursa npc o kontrata başlasın cancel basılır npc kartı tekrar npc carousel image paneline geri gitsin. details panelinde bu npc ile bu kontratı yapınca olacaklar gözüksün işte bu kontrat normalde kaç saniye 30 saniyede yapılıyor diyelim bu npc ile yapmaya kalkarsan 20 saniyede oluyor ve başarı oranı %80 mesela. npc her türlü xp kazansın mesela madencilik kontratı +Mining olsun onu yazsın ayarlarda ne kadar xp gelir diye ödül ihtimalleri varsa yazsın bu ödüllerin gelme ihtimali falan. bütün detaylar yazsın.
+
+npc'lerin ismi olucak (2 ve 3 heceden oluşan rastgele isimler) ve kartın üstünde yazıcak
+npc yöneticen ayrı ayrı max 10 tane npc olucak
+her npc'nin istatistiği başarı oranı var. mesela mininge verdiğin npc mining leveli az ise daha yavaş mining yapıcak
+npcler çabuk elde edip ölen şeyler olmalı
+npclere cardlarına basınca daha detaylı açıklamalar yazsın yetenekleri falan gözüksün
+kontrat yaptıkça npclerin bu yetenekleri artıcak ekranda da kontrat bittiğinde ona uygun bir label çıksın işte "+Mining 10" gibi bişey 2 saniye
+
+kimini okulun başına getir , ajan  tüccar  komutan öğretmen işçi marangoz kral büyücü doktor koruma yap falan. savaşa gönder falan böyle kontratlar var.
+
+OTOMASYON
+oyuncular sıkılabileceği için ve kafası karışabilecğeinden otomasyonlar olucak sen bir büyücüsün diyip ona göre hareket edebilir. otomatik butonu olsun (mesela mining kartı gelirse otomatik kendisini ata burada bir) npc detaylarına girince 1 npc'ye bir kontrat otomasyonu olabilir listeden seçebilelim.
+
+
+AJANLAR VE HARITA
+diğer köylere ajan gönderebiliyoruz bir yetkiliyi öldürmek veya bilgi almak için. yada haritayı bir kaç günlüğüne takip etmek için
+birini öldürmek için gönderilen ajanın ölme ihtimali de var oyuncuya belirtmek lazım bunu
+oyunda haritanın açık olmasını istemiyorum ajanlar sayesinde diğer oyuncular haritayı anlayabilsin ve böyle dengeli olabilir bir krallık bir noktada çok büyük olursa ondan uzaklaşabilirler. ajanların görüş açıları daha uzun olabilir diğer npclere göre
+
+
+KRAL VE ŞEHIR
+bir şehrin kurucusu ayrı bir npc ve o şehirdeki okuldaki öğretmen ayrı bir npc olabilir.
+vergileri şehrin kurucusu belirleyebilir( ne kadar çok vergi olursa o kadar isyan kontratı gelir o isyanları bastırmak zorunda kalırsın bu bir zorunlu kontrat kartı) burada şehir bir oyuncular klanı gibi oalbilir bildiğimiz. tabi yetmeyen kısımlarda otomatik npcde gelebilir oyuncular daha ucuz olduğu için oyuncu koymak daha mantıklı olabilir. şehirler kurulurken 1 milyon altın gibi zor ama imkansız olmayan bir para talep edilir ve diğer şehirlere olan uzaklığı aynı kalabilir oyuncu seçemez de yapabiliriz. düşük para ile istediğin yerde yapabilsin veya çok parayla uzaklarda bir yerde seçemeyeceği bir konumda olabilir bu konumlar travian gibi. oyuncular birden fazla şehir yönetebilir teknik olarak en fazla 10 kralı olabilir
+
+
+ASIL HARİTA
+Voronoi diagram ile oluşturulmuş bir sürü ikon olucak. şatolar 1 ile 5 seviye arası ve boş araziler. boş arazide kendi kaleni oluşturabilirsin.boş arazi ikonu olarak white_city_level_1 kullanılsın. oluştururken klan seçiyon kırmızı mavi yeşil. yeşil mavi kırmızı  kaleler var etrafta
+
+
+KONTRATLAR
+kontrat isimleri yazsın kartın en üstünde kontrat kartına basınca detayları çıksın. ne kadar zor olduğu ne olduğu.
+oyuncunun NPC’yi belirli bir göreve atamasıyla başlar ve görev süresi progress barı ilerletir ⏳ görev bittiğinde başarı veya başarısızlık raporu gelir, ödüller para, eşya, deneyim veya prestij olabilir 💎 başarı, NPC’nin statları, görev zorluğu ve şehir bonuslarına göre hesaplanır ve risk içerir ⚔️ görev başarısız olursa NPC kaybolabilir, yaralanabilir veya kaynak kaybedilebilir💪 sözleşme türüne göre bonuslar verilir, savunma kontratları savunma gücünü artırırken ticaret kontratları daha fazla kaynak getirir, aynı anda sınırsız kontrat verilemez stratejik seçimler gerektirir ve başka şehirlerde kiralama, o şehre saldırı veya koruma görevleri yapılabilir. kontratlar şehre özeldir eğer o şehirde npc'in yoksa o kontratı alamazsın. sistem kontratları çok basit ağaç taş topla gibi de olabilir öğretmen doktor görevi de olabilir şehir biraz gelişmişse
+
+ZORUNLU KONTRATLAR
+Bu kontratlar tamamlana kadar kontratlar panelinde kalıcak diğer kontratlar gibi pas geçme hakkın yok. diğer kontratlar'da hem x butonu ile hem swap ile yok edebiliriz yapmamak için ama zorunlu kontratlarda böyle bir şey yok. yapana kadar ekranda duruyor kontratlar arasında duruyor bu kontratların kart arkası rengi farklı kırmızı renkde. mesela isyan konratı köylüler çok vergiden dolayı isyan ediyor yada başka klan saldırısı, yada dev veya büyülü yaratık saldırısı gibi
+
+YENI NPC EKLEME
+ oyuncunun mevcut gruba şehirden kiralama(şehir ne kadar iyiyse o kadar iyi npcler), görev ödülü, eğitim okulu ( okulun kalitesi önemli) veya rastgele olaylar aracılığıyla yeni karakterler katabilmesini sağlar 🌆 her ekleme belirli bir maliyet gerektirir ve grup boyutu sınırlıdır. bir npc kontrat paneline gelir sanki kontrat gibi üstünde x butonu vardır ve bu swap edilip yok edilebilir istenirse ve kartın altında recruit yazıyor basarsa npcler listesine normal bir npc kartına dönüşür x butonu olmayan. 
+
+
+UI
+üstte kontratlar gelicek aşağıda npcler olucak. npcleri sürükle bırak kontratları yapıcak hatta her böyle aynı tür kontrat gelince otomatik olarak sürüklen diyebiliriz. kontratı silebiliriz. bu kontrat şehirden de gelebilir sistem de verebilir. şehir ne kadar gelişmişse o kadar farklı kontrat türü olucak.
+
+
+TICARET KONTRATLARI
+NPC’lerin belirli şehirler arasında mal taşıyıp satması üzerine kurulabilir ve her şehrin kendi arz-talep durumuyla fiyatlar dinamik olarak değişir 🌆 oyuncu NPC’yi görevlendirir, taşınacak malı ve rotayı seçer, NPC kapasitesine ve kişiliğine göre görev süresi ve risk hesaplanır 🚚 görev tamamlandığında asenkron olarak başarı, gelir ve NPC deneyimi raporlanır, böylece hem stratejik kararlar hem de otomasyon ile ekonomi canlı tutulur
+
+
+UPGRADE KONTRATLARI
+at atarabası bagajı mesafeleri kısaltır malzeme limitini artırır
+
+EŞYA KONTRATLARI
+bir kontrat bitince ödül kontratına dönüşsün eğer ödülü varsa tabi bu kartın arkaplanı sarı bu ödül artık neyse mesela bir büyü kitabı ödülü ve bu kontrata herhangi bir npc sürükleyince hemen anında +Magic 10 falan o ödülün değerine göre npcmiz güçlensin.
+
+
+
+

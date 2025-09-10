@@ -1,0 +1,13 @@
+images {
+  image: "/builtins/graphics/particle_blob.png"
+}
+images {
+  image: "/druid/images/icons/icon_arrow.png"
+}
+images {
+  image: "/druid/images/icons/icon_drag.png"
+}
+images {
+  image: "/druid/images/panels/ui_circle_64.png"
+}
+extrude_borders: 2

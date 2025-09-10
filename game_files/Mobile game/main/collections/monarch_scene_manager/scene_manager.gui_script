@@ -1,0 +1,31 @@
+local monarch = require "monarch.monarch"
+
+function init(self)
+    msg.post(".", "acquire_input_focus")
+    monarch.debug()
+    msg.post("#","init_monarch")
+    print("hello world")
+   
+end
+
+function final(self)
+end
+
+function update(self, dt)
+end
+
+function on_message(self, message_id, message, sender)
+    if message_id == hash("init_monarch") then
+        monarch.show("main_menu")
+        print("main_menu")
+    elseif message_id == hash("gameplay_menu") then
+        monarch.show("gameplay_menu")
+        print("gameplay_menu")
+    end
+end
+
+function on_input(self, action_id, action)
+end
+
+function on_reload(self)
+end
