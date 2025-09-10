@@ -16,7 +16,8 @@
     ],
     "Lua.workspace.library": [
         "~/.config/Cursor/User/globalStorage/astronachos.defold",
-        "~/.config/Cursor/User/workspaceStorage/e523eaf1af46fd5cb6c32199b92a4f40/astronachos.defold"
+        "~/.config/Cursor/User/workspaceStorage/e523eaf1af46fd5cb6c32199b92a4f40/astronachos.defold",
+        "~/.config/Cursor/User/workspaceStorage/0ca0f74064442eda075508bcba50e8bd/astronachos.defold"
     ],
     "glsllint.additionalStageAssociations": {
         ".fp": "frag",

@@ -13,17 +13,51 @@ function handle_drag_move(drag_component,dx, dy)
 end
 
 
+function remove_element(self, data)
+    -- 1. Druid bileşenini (butonu) Druid yönetiminden kaldır
+    self.druid:remove(data.button_component)
 
+    -- 2. İlgili veriyi `drop_zones` tablosundan bul ve sil (indekse güvenme!)
+    for i, zone in ipairs(self.drop_zones) do
+        if zone.node == data.root then
+            table.remove(self.drop_zones, i)
+            self.contract_grid:remove(i)
+            break -- Elemanı bulduktan sonra döngüden çık
+        end
+    end
+
+    -- 3. GUI düğümünü ve altındaki her şeyi sil
+    -- grid:remove() çağrısına gerek yok, bind_grid bunu halleder.
+    gui.delete_node(data.root)
+
+    print("Eleman başarıyla silindi:", data.root)
+end
 
 local function add_contract_element(self, data)
     local prefab_nodes = gui.clone_tree(self.prefab)
     local root = prefab_nodes["box"]
     gui.set_enabled(root, true)
-    local contract_name=prefab_nodes["contract_name"]
+    local contract_name = prefab_nodes["contract_name"]
+    local destroy_button = prefab_nodes["destroy_button"]
+
+    -- ÖNEMLİ: Buton bileşenini bir değişkende sakla
+    local button_component = self.druid:new_button(destroy_button)
+
+    -- Butonun on_click olayına, kendisini de içeren veriyi gönder
+    button_component.on_click:subscribe(function()
+        -- Fonksiyonu `self` bağlamında ve doğru veriyle çağır
+        remove_element(self, {
+            root = root,
+            button_component = button_component -- Buton referansını buraya ekle
+        })
+    end)
+    
     gui.set_text(contract_name, data.text)
     self.contract_grid:add(root)
+    
     -- Register as a dynamic drop zone
-    self.drop_zones[#self.drop_zones + 1] = {
+    local new_index = #self.drop_zones + 1
+    self.drop_zones[new_index] = {
         node = root,
         name = data.text,
         color = vmath.vector4(1, 1, 1, 1),
@@ -39,8 +73,8 @@ local function add_hero_element(self, data)
     local root = prefab_nodes["box"]
     gui.set_enabled(root, true)
     local contract_name=prefab_nodes["contract_name"]
-    local destroy_name=prefab_nodes["destroy_button"]
-    gui.set_visible(destroy_name, false)
+    local destroy_button=prefab_nodes["destroy_button"]
+    gui.set_enabled(destroy_button, false)
     gui.set_text(contract_name, data.text)
     self.hero_grid:add(root)
 
@@ -179,13 +213,3 @@ function on_item_dropped(self, zone_name, hero_root)
 end
 
 
-function remove_element(self)
-	local last_node = table.remove(self.created_nodes)
-	if last_node == nil then
-		return
-	end
-
-	gui.delete_node(last_node)
-	local grid_index = self.grid:get_index_by_node(last_node)
-	self.grid:remove(grid_index)
-end
