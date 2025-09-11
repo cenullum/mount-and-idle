@@ -1,0 +1,23 @@
+{
+  "type": "hero",
+  "id": "forest_ranger_001",
+  "name": "Elara Swiftbow",
+  "atlas": "hero",
+  "flipbook": "forest_ranger",
+  "clan": "green",
+  "is_mandatory": false,
+  "hero": {
+    "role": "agent",
+    "base_stats": {
+      "mining": 8,
+      "combat": 18,
+      "magic": 5,
+      "trading": 12,
+      "stealth": 22,
+      "leadership": 10,
+      "healing": 6,
+      "crafting": 14
+    },
+    "auto_assign_contracts": ["espionage", "mining"]
+  }
+}

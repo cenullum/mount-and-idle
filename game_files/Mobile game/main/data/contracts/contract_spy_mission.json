@@ -1,0 +1,66 @@
+{
+  "type": "contract",
+  "id": "enemy_intel_gathering",
+  "name": "Spy Mission",
+  "atlas": "contracts",
+  "flipbook": "spying",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "espionage",
+    "base_duration_seconds": 180,
+    "spawn_probability": 0.10,
+    "requirements": {
+      "resources": {
+        "gold": 150,
+        "food": 20
+      },
+      "hero_stats": {
+        "stealth": 20,
+        "trading": 8
+      },
+      "city_level": 2
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 100,
+        "prestige": 18,
+        "xp": {
+          "stealth": 25,
+          "trading": 8
+        }
+      },
+      "possible": [
+        {
+          "item": "enemy_plans",
+          "quantity": 1,
+          "drop_chance": 0.5
+        },
+        {
+          "item": "blackmail_material",
+          "quantity": 1,
+          "drop_chance": 0.2
+        },
+        {
+          "item": "gold_pouch",
+          "quantity": 1,
+          "drop_chance": 0.3
+        }
+      ]
+    },
+    "effects": {
+      "reputation": 25,
+      "city_defense": 3
+    },
+    "expiry_seconds": 200,
+    "difficulty": 2.2,
+    "failure_consequences": {
+      "death_chance": 0.15,
+      "injury_chance": 0.20,
+      "resource_loss": {
+        "gold": 120,
+        "reputation": 30
+      }
+    }
+  }
+}

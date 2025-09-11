@@ -25,4 +25,19 @@ images {
 images {
   image: "/main/images/hero/red_wizard.jpg"
 }
+images {
+  image: "/main/images/hero/fire_wizard.jpg"
+}
+images {
+  image: "/main/images/hero/forest_ranger.jpg"
+}
+images {
+  image: "/main/images/hero/golden_trader.jpg"
+}
+images {
+  image: "/main/images/hero/ice_knight.jpg"
+}
+images {
+  image: "/main/images/hero/shadow_assassin.jpg"
+}
 extrude_borders: 2

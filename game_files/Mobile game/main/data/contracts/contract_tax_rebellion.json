@@ -1,0 +1,56 @@
+{
+  "type": "contract",
+  "id": "tax_rebellion_suppress",
+  "name": "Tax Rebellion",
+  "atlas": "contracts",
+  "flipbook": "soldier",
+  "clan": null,
+  "is_mandatory": true,
+  "contract": {
+    "category": "leadership",
+    "base_duration_seconds": 80,
+    "spawn_probability": 0.12,
+    "requirements": {
+      "resources": {
+        "food": 40
+      },
+      "hero_stats": {
+        "leadership": 18,
+        "combat": 12
+      },
+      "city_level": 2
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 100,
+        "prestige": 10,
+        "xp": {
+          "leadership": 20,
+          "combat": 10
+        }
+      },
+      "possible": [
+        {
+          "item": "loyalty_token",
+          "quantity": 1,
+          "drop_chance": 0.3
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": -5,
+      "reputation": 5
+    },
+    "expiry_seconds": null,
+    "difficulty": 1.8,
+    "failure_consequences": {
+      "death_chance": 0.05,
+      "injury_chance": 0.18,
+      "resource_loss": {
+        "city_happiness": 25,
+        "reputation": 20,
+        "gold": 150
+      }
+    }
+  }
+}

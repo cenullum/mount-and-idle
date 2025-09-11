@@ -1,0 +1,60 @@
+{
+  "type": "contract",
+  "id": "trade_spices_route",
+  "name": "Spice Trading Route", 
+  "atlas": "contracts",
+  "flipbook": "trade",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "trading",
+    "base_duration_seconds": 60,
+    "spawn_probability": 0.15,
+    "requirements": {
+      "resources": {
+        "gold": 100,
+        "food": 30
+      },
+      "hero_stats": {
+        "trading": 12,
+        "stealth": 5
+      },
+      "city_level": 2
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 250,
+        "prestige": 8,
+        "xp": {
+          "trading": 20,
+          "stealth": 5
+        }
+      },
+      "possible": [
+        {
+          "item": "exotic_spices",
+          "quantity": 3,
+          "drop_chance": 0.6
+        },
+        {
+          "item": "trade_contract",
+          "quantity": 1,
+          "drop_chance": 0.2
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 5,
+      "reputation": 15
+    },
+    "expiry_seconds": 240,
+    "difficulty": 1.5,
+    "failure_consequences": {
+      "death_chance": 0.03,
+      "injury_chance": 0.1,
+      "resource_loss": {
+        "gold": 80
+      }
+    }
+  }
+}

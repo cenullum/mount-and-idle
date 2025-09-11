@@ -1,5 +1,6 @@
 [project]
 title = Mount and Idle
+custom_resources = main/data/
 dependencies#0 = https://github.com/Insality/defold-event/archive/refs/tags/12.zip
 dependencies#1 = https://github.com/Insality/druid/archive/refs/tags/1.1.0.zip
 dependencies#2 = https://github.com/britzl/monarch/archive/refs/tags/5.1.1.zip

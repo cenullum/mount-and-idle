@@ -1,0 +1,64 @@
+{
+  "type": "contract",
+  "id": "castle_wall_construction",
+  "name": "Castle Wall Build",
+  "atlas": "contracts",
+  "flipbook": "construction",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "construction",
+    "base_duration_seconds": 200,
+    "spawn_probability": 0.08,
+    "requirements": {
+      "resources": {
+        "wood": 100,
+        "stone": 150,
+        "gold": 400
+      },
+      "hero_stats": {
+        "crafting": 20,
+        "leadership": 12
+      },
+      "city_level": 3
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 300,
+        "prestige": 30,
+        "xp": {
+          "crafting": 40,
+          "leadership": 20
+        }
+      },
+      "possible": [
+        {
+          "item": "architectural_plans",
+          "quantity": 1,
+          "drop_chance": 0.4
+        },
+        {
+          "item": "master_tools",
+          "quantity": 1,
+          "drop_chance": 0.2
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 15,
+      "city_defense": 25,
+      "reputation": 20
+    },
+    "expiry_seconds": 400,
+    "difficulty": 2.8,
+    "failure_consequences": {
+      "death_chance": 0.03,
+      "injury_chance": 0.20,
+      "resource_loss": {
+        "wood": 50,
+        "stone": 75,
+        "gold": 200
+      }
+    }
+  }
+}

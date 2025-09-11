@@ -1,0 +1,66 @@
+{
+  "type": "contract",
+  "id": "diplomatic_negotiation",
+  "name": "Diplomatic Mission",
+  "atlas": "contracts",
+  "flipbook": "strategy",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "leadership",
+    "base_duration_seconds": 100,
+    "spawn_probability": 0.10,
+    "requirements": {
+      "resources": {
+        "gold": 200,
+        "food": 30
+      },
+      "hero_stats": {
+        "leadership": 15,
+        "trading": 10
+      },
+      "city_level": 3
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 180,
+        "prestige": 20,
+        "xp": {
+          "leadership": 25,
+          "trading": 15
+        }
+      },
+      "possible": [
+        {
+          "item": "trade_agreement",
+          "quantity": 1,
+          "drop_chance": 0.4
+        },
+        {
+          "item": "alliance_token",
+          "quantity": 1,
+          "drop_chance": 0.2
+        },
+        {
+          "item": "diplomatic_gift",
+          "quantity": 1,
+          "drop_chance": 0.3
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 12,
+      "reputation": 35
+    },
+    "expiry_seconds": 250,
+    "difficulty": 1.6,
+    "failure_consequences": {
+      "death_chance": 0.01,
+      "injury_chance": 0.05,
+      "resource_loss": {
+        "reputation": 25,
+        "gold": 100
+      }
+    }
+  }
+}

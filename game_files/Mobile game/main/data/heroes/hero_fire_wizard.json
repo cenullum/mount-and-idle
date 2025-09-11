@@ -1,0 +1,23 @@
+{
+  "type": "hero",
+  "id": "fire_wizard_001",
+  "name": "Aldric the Flame",
+  "atlas": "hero",
+  "flipbook": "fire_wizard",
+  "clan": "red",
+  "is_mandatory": false,
+  "hero": {
+    "role": "wizard",
+    "base_stats": {
+      "mining": 3,
+      "combat": 12,
+      "magic": 25,
+      "trading": 8,
+      "stealth": 5,
+      "leadership": 15,
+      "healing": 10,
+      "crafting": 7
+    },
+    "auto_assign_contracts": ["magic", "combat"]
+  }
+}

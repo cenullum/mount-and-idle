@@ -1,0 +1,23 @@
+{
+  "type": "hero",
+  "id": "golden_trader_001",
+  "name": "Marcus Goldhand",
+  "atlas": "hero",
+  "flipbook": "golden_trader",
+  "clan": null,
+  "is_mandatory": false,
+  "hero": {
+    "role": "trader",
+    "base_stats": {
+      "mining": 10,
+      "combat": 6,
+      "magic": 12,
+      "trading": 26,
+      "stealth": 15,
+      "leadership": 18,
+      "healing": 8,
+      "crafting": 5
+    },
+    "auto_assign_contracts": ["trading", "leadership"]
+  }
+}

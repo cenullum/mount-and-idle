@@ -15,6 +15,10 @@ textures {
   name: "icons"
   texture: "/main/images/atlases/icons.atlas"
 }
+textures {
+  name: "hero"
+  texture: "/main/images/atlases/hero.atlas"
+}
 nodes {
   position {
     x: 269.0
@@ -120,6 +124,10 @@ nodes {
   position {
     y: 77.0
   }
+  scale {
+    x: 0.5
+    y: 0.5
+  }
   size {
     x: 200.0
     y: 100.0
@@ -180,6 +188,44 @@ nodes {
   inherit_alpha: true
   size_mode: SIZE_MODE_AUTO
   visible: false
+}
+nodes {
+  position {
+    x: 282.0
+    y: 1041.0
+  }
+  size {
+    x: 143.0
+    y: 64.0
+  }
+  color {
+    x: 0.302
+    y: 0.502
+    z: 0.302
+  }
+  type: TYPE_BOX
+  texture: "icons/ui_circle_64"
+  id: "map_button"
+  parent: "root"
+  inherit_alpha: true
+  slice9 {
+    x: 32.0
+    y: 32.0
+    z: 32.0
+    w: 32.0
+  }
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Map"
+  font: "druid_text_regular"
+  id: "text1"
+  parent: "map_button"
+  inherit_alpha: true
 }
 material: "/builtins/materials/gui.material"
 adjust_reference: ADJUST_REFERENCE_PARENT

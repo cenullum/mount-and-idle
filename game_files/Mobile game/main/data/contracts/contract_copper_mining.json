@@ -1,0 +1,56 @@
+{
+  "type": "contract",
+  "id": "copper_mining_basic",
+  "name": "Copper Mine Expedition",
+  "atlas": "contracts",
+  "flipbook": "mining",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "mining",
+    "base_duration_seconds": 45,
+    "spawn_probability": 0.20,
+    "requirements": {
+      "resources": {
+        "wood": 20,
+        "food": 10
+      },
+      "hero_stats": {
+        "mining": 8
+      },
+      "city_level": 1
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 80,
+        "xp": {
+          "mining": 15
+        }
+      },
+      "possible": [
+        {
+          "item": "copper_ore",
+          "quantity": 5,
+          "drop_chance": 0.7
+        },
+        {
+          "item": "rare_gem",
+          "quantity": 1,
+          "drop_chance": 0.05
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 2
+    },
+    "expiry_seconds": 180,
+    "difficulty": 1.2,
+    "failure_consequences": {
+      "death_chance": 0.01,
+      "injury_chance": 0.15,
+      "resource_loss": {
+        "gold": 20
+      }
+    }
+  }
+}

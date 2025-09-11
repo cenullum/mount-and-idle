@@ -1,0 +1,57 @@
+{
+  "type": "contract",
+  "id": "forest_logging_expedition",
+  "name": "Forest Logging",
+  "atlas": "contracts",
+  "flipbook": "lumbering",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "mining",
+    "base_duration_seconds": 40,
+    "spawn_probability": 0.25,
+    "requirements": {
+      "resources": {
+        "food": 15
+      },
+      "hero_stats": {
+        "crafting": 10,
+        "mining": 5
+      },
+      "city_level": 1
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 60,
+        "xp": {
+          "crafting": 12,
+          "mining": 8
+        }
+      },
+      "possible": [
+        {
+          "item": "quality_wood",
+          "quantity": 8,
+          "drop_chance": 0.6
+        },
+        {
+          "item": "rare_timber",
+          "quantity": 2,
+          "drop_chance": 0.15
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 3
+    },
+    "expiry_seconds": 150,
+    "difficulty": 1.0,
+    "failure_consequences": {
+      "death_chance": 0.01,
+      "injury_chance": 0.12,
+      "resource_loss": {
+        "gold": 15
+      }
+    }
+  }
+}

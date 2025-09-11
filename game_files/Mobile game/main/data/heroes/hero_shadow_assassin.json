@@ -1,0 +1,23 @@
+{
+  "type": "hero",
+  "id": "shadow_assassin_001",
+  "name": "Whisper",
+  "atlas": "hero",
+  "flipbook": "shadow_assassin",
+  "clan": "red",
+  "is_mandatory": false,
+  "hero": {
+    "role": "agent",
+    "base_stats": {
+      "mining": 2,
+      "combat": 20,
+      "magic": 14,
+      "trading": 16,
+      "stealth": 28,
+      "leadership": 8,
+      "healing": 4,
+      "crafting": 8
+    },
+    "auto_assign_contracts": ["espionage", "combat"]
+  }
+}

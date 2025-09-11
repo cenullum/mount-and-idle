@@ -1,0 +1,65 @@
+{
+  "type": "contract",
+  "id": "magic_crystal_research",
+  "name": "Arcane Research",
+  "atlas": "contracts",
+  "flipbook": "alchemy",
+  "clan": null,
+  "is_mandatory": false,
+  "contract": {
+    "category": "magic",
+    "base_duration_seconds": 120,
+    "spawn_probability": 0.12,
+    "requirements": {
+      "resources": {
+        "gold": 200,
+        "stone": 30
+      },
+      "hero_stats": {
+        "magic": 18,
+        "crafting": 8
+      },
+      "city_level": 3
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 50,
+        "prestige": 15,
+        "xp": {
+          "magic": 30,
+          "crafting": 10
+        }
+      },
+      "possible": [
+        {
+          "item": "magic_crystal",
+          "quantity": 2,
+          "drop_chance": 0.4
+        },
+        {
+          "item": "spell_scroll",
+          "quantity": 1,
+          "drop_chance": 0.25
+        },
+        {
+          "item": "ancient_tome",
+          "quantity": 1,
+          "drop_chance": 0.1
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 8,
+      "reputation": 20
+    },
+    "expiry_seconds": 300,
+    "difficulty": 1.8,
+    "failure_consequences": {
+      "death_chance": 0.02,
+      "injury_chance": 0.12,
+      "resource_loss": {
+        "gold": 100
+      }
+    }
+  }
+}

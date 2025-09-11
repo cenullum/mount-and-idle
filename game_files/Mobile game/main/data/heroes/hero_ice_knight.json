@@ -1,0 +1,23 @@
+{
+  "type": "hero",
+  "id": "ice_knight_001", 
+  "name": "Sir Frost",
+  "atlas": "hero",
+  "flipbook": "ice_knight",
+  "clan": "blue",
+  "is_mandatory": false,
+  "hero": {
+    "role": "warrior",
+    "base_stats": {
+      "mining": 6,
+      "combat": 24,
+      "magic": 8,
+      "trading": 4,
+      "stealth": 3,
+      "leadership": 20,
+      "healing": 5,
+      "crafting": 10
+    },
+    "auto_assign_contracts": ["combat", "leadership"]
+  }
+}

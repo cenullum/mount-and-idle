@@ -1,4 +1,5 @@
 local druid = require("druid.druid")
+local data_manager = require("main.data_manager")
 
 function handle_drag_move(drag_component,dx, dy)
     -- Bileşenin bağlı olduğu düğümü al
@@ -87,6 +88,13 @@ local function add_contract_element(self, data)
     end)
     
     gui.set_text(contract_name, data.text)
+    
+    -- Set contract image from JSON data
+    if data.contract_data and data.contract_data.atlas and data.contract_data.flipbook then
+        gui.set_texture(root, data.contract_data.atlas)
+        gui.play_flipbook(root, data.contract_data.flipbook)
+    end
+    
     self.contract_grid:add(root)
     
     -- Register as a dynamic drop zone
@@ -111,6 +119,15 @@ local function add_hero_element(self, data)
     local destroy_button=prefab_nodes["destroy_button"]
     gui.set_enabled(destroy_button, false)
     gui.set_text(contract_name, data.text)
+    local position_name=gui.get_position(contract_name)
+    position_name.y=position_name.y-200
+    gui.set_position(contract_name, position_name)
+    -- Set hero image from JSON data
+    if data.hero_data and data.hero_data.atlas and data.hero_data.flipbook then
+        gui.set_texture(root, data.hero_data.atlas)
+        gui.play_flipbook(root, data.hero_data.flipbook)
+    end
+    
     self.hero_grid:add(root)
 
     
@@ -206,6 +223,9 @@ local function add_hero_element(self, data)
 end
 
 function init(self)
+    -- Initialize data manager first
+    data_manager.init()
+    math.randomseed(os.time())
     self.druid = druid.new(self)
     self.hero_scroll = self.druid:new_scroll("hero_scroll", "hero_content")
     self.contract_scroll = self.druid:new_scroll("contract_scroll", "contract_content")
@@ -224,16 +244,22 @@ function init(self)
     self.element_drag_data = {}
     self.drop_zones = {}
 
-    for i = 1, 10 do
-        -- Call at any moment
-        -- Use grid:remove to delete element
-        add_hero_element(self, { text = "Hero " .. i }) -- You can pass data to the GUI element
+    -- Load heroes from JSON data
+    local heroes = data_manager.get_all_heroes()
+    for _, hero in ipairs(heroes) do
+        add_hero_element(self, { text = hero.name, hero_data = hero })
     end
 
-    for i = 1, 10 do
-        -- Call at any moment
-        -- Use grid:remove to delete element
-        add_contract_element(self, { text = "Contract " .. i }) -- You can pass data to the GUI element
+    -- Load initial contracts from JSON data
+    local initial_contracts = data_manager.spawn_random_contracts(5)
+    for _, contract in ipairs(initial_contracts) do
+        add_contract_element(self, { text = contract.name, contract_data = contract })
+    end
+    
+    -- Add mandatory contracts
+    local mandatory_contracts = data_manager.get_mandatory_contracts()
+    for _, contract in ipairs(mandatory_contracts) do
+        add_contract_element(self, { text = contract.name, contract_data = contract })
     end
     
 end

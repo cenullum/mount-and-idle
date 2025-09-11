@@ -1,0 +1,61 @@
+{
+  "type": "contract",
+  "id": "plague_outbreak_medical",
+  "name": "Plague Treatment",
+  "atlas": "contracts",
+  "flipbook": "alchemy",
+  "clan": null,
+  "is_mandatory": true,
+  "contract": {
+    "category": "medical",
+    "base_duration_seconds": 150,
+    "spawn_probability": 0.05,
+    "requirements": {
+      "resources": {
+        "gold": 300,
+        "stone": 50
+      },
+      "hero_stats": {
+        "healing": 15,
+        "magic": 10
+      },
+      "city_level": 2
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 200,
+        "prestige": 25,
+        "xp": {
+          "healing": 35,
+          "magic": 15
+        }
+      },
+      "possible": [
+        {
+          "item": "healing_potion",
+          "quantity": 5,
+          "drop_chance": 0.8
+        },
+        {
+          "item": "medical_knowledge",
+          "quantity": 1,
+          "drop_chance": 0.3
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 20,
+      "reputation": 30
+    },
+    "expiry_seconds": null,
+    "difficulty": 2.5,
+    "failure_consequences": {
+      "death_chance": 0.05,
+      "injury_chance": 0.30,
+      "resource_loss": {
+        "city_happiness": 50,
+        "reputation": 40
+      }
+    }
+  }
+}

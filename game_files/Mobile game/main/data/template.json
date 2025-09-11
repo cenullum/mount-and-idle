@@ -1,0 +1,84 @@
+{
+  "type": "hero_or_contract",
+  "id": "unique_identifier_string",
+  "name": "Display Name for Card",
+  "atlas": "hero",
+  "flipbook": "fire_wizard",
+  "clan": "red_green_blue_or_null",
+  "is_mandatory": false,
+  
+  "hero": {
+    "_comment": "Only include this section if type is 'hero'",
+    "role": "wizard_warrior_trader_agent_king_teacher_doctor_carpenter_guard_worker_commander",
+    "base_stats": {
+      "mining": 10,
+      "combat": 15,
+      "magic": 20,
+      "trading": 5,
+      "stealth": 8,
+      "leadership": 12,
+      "healing": 7,
+      "crafting": 9
+    },
+    "auto_assign_contracts": ["contract_category_list"]
+  },
+  
+  "contract": {
+    "_comment": "Only include this section if type is 'contract'",
+    "category": "mining_trading_combat_magic_espionage_leadership_construction_medical",
+    "base_duration_seconds": 30,
+    "spawn_probability": 0.15,
+    "requirements": {
+      "resources": {
+        "wood": 100,
+        "stone": 50,
+        "gold": 200,
+        "food": 25
+      },
+      "hero_stats": {
+        "mining": 5,
+        "combat": 10,
+        "magic": 8
+      },
+      "city_level": 2
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 150,
+        "prestige": 5,
+        "xp": {
+          "mining": 10,
+          "combat": 5,
+          "magic": 3
+        }
+      },
+      "possible": [
+        {
+          "item": "iron_ore",
+          "quantity": 3,
+          "drop_chance": 0.3
+        },
+        {
+          "item": "magic_crystal",
+          "quantity": 1,
+          "drop_chance": 0.05
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 5,
+      "city_defense": -2,
+      "reputation": 10
+    },
+    "expiry_seconds": 300,
+    "difficulty": 1.0,
+    "failure_consequences": {
+      "death_chance": 0.02,
+      "injury_chance": 0.1,
+      "resource_loss": {
+        "gold": 50,
+        "wood": 20
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "type": "contract",
+  "id": "bandit_attack_defense",
+  "name": "Bandit Attack!",
+  "atlas": "contracts",
+  "flipbook": "soldier",
+  "clan": null,
+  "is_mandatory": true,
+  "contract": {
+    "category": "combat",
+    "base_duration_seconds": 90,
+    "spawn_probability": 0.08,
+    "requirements": {
+      "resources": {
+        "food": 50
+      },
+      "hero_stats": {
+        "combat": 15
+      },
+      "city_level": 1
+    },
+    "rewards": {
+      "guaranteed": {
+        "gold": 150,
+        "prestige": 12,
+        "xp": {
+          "combat": 25,
+          "leadership": 8
+        }
+      },
+      "possible": [
+        {
+          "item": "weapon_upgrade",
+          "quantity": 1,
+          "drop_chance": 0.3
+        },
+        {
+          "item": "bandit_treasure",
+          "quantity": 1,
+          "drop_chance": 0.15
+        }
+      ]
+    },
+    "effects": {
+      "city_happiness": 10,
+      "city_defense": 5
+    },
+    "expiry_seconds": null,
+    "difficulty": 2.0,
+    "failure_consequences": {
+      "death_chance": 0.08,
+      "injury_chance": 0.25,
+      "resource_loss": {
+        "gold": 200,
+        "wood": 50
+      }
+    }
+  }
+}
