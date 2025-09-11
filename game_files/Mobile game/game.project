@@ -52,3 +52,6 @@ velocity_threshold = 100.0
 [html5]
 scale_mode = stretch
 
+[native_extension]
+app_manifest = /my_manifest.appmanifest
+

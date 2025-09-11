@@ -1,0 +1,58 @@
+stacklands, melvor idle style simple interface, everything consists of buttons but even more minimal. 3/5 of the screen will be contracts, 2/5 will be called group. group will be at the bottom (by group I mean the NPCs).
+
+red, green, blue clans can be NPCs, like rock-paper-scissors, they can be stronger against each other, around 30% advantage.
+
+on top of every card there’s the name, in the middle a representative image and background, usually gray for now. if it’s a mandatory card it turns red. NPC cards should be gray for now. contract cards have an X button on top to delete them, unless they are mandatory.
+
+when you drag and drop an NPC card onto a contract card, the NPC card should stick to that contract, and below it start, details, and cancel buttons appear. if start is pressed, the NPC begins the contract. if cancel is pressed, the NPC card returns to the NPC carousel image panel. in details panel, it shows what happens when this NPC does this contract. normally the contract takes 30 seconds, but with this NPC maybe 20 seconds and 80% success rate. the NPC should always gain XP, for example mining contract = +Mining, and it should show how much XP comes from settings. if there are possible rewards, show their drop chance too. all details should be displayed.
+
+NPCs will have names (random 2- or 3-syllable names) and it shows on top of the card.
+you can manage max 10 NPCs.
+each NPC has success rate stats. if you assign an NPC with low mining level to mining, it will be slower.
+NPCs should be things you obtain and lose quickly.
+when you click on NPC cards, it should show more detailed descriptions, their skills, etc.
+as they complete contracts, their skills increase. at the end of a contract, a label should pop up on screen for 2 seconds like “+Mining 10”.
+
+assign some as school heads, agents, traders, commanders, teachers, workers, carpenters, kings, wizards, doctors, guards, send to war, etc. these are contract types.
+
+AUTOMATION
+since players may get bored or confused, automation will exist. you can say “you are a wizard” and it acts accordingly. there should be an auto button (for example if a mining contract appears, it automatically assigns itself there). in NPC details, you can assign 1 NPC to auto-accept a contract from a list.
+
+AGENTS AND MAP
+we can send agents to other villages to kill an official or gather intel. or to monitor the map for a few days.
+agents sent to kill someone also have a chance of dying, this must be shown to the player.
+I don’t want the world map to be always visible, instead agents can scout and reveal info. this keeps balance: if one kingdom grows too big, others can move away. agents’ vision range can be longer than other NPCs.
+
+KING AND CITY
+a city founder is a separate NPC, and a teacher in that city’s school is another NPC.
+the founder can set taxes (the higher the tax, the more rebellion contracts appear, and you must suppress them—these are mandatory contracts). a city can function like a clan of players. if not enough, auto NPCs may appear, but since players are cheaper, using players is more logical.
+founding a city requires a hard but not impossible cost (like 1 million gold), and distances to other cities stay balanced (player may or may not choose location). cheaper cost = free placement, expensive = fixed distant location (like Travian). players can technically manage multiple cities, up to 10 kings max.
+
+MAIN MAP
+lots of icons generated with Voronoi diagram. castles levels 1–5 and empty lands. on empty land you can build your own castle. empty land icon should be white_city_level_1. when creating, you choose a clan color (red, blue, green).
+
+CONTRACTS
+contract names appear at the top of the card, and clicking it shows details: difficulty, type.
+starts when player assigns an NPC, progress bar runs ⏳, when done success/failure report appears. rewards: money, items, XP, prestige 💎.
+success is based on NPC stats, task difficulty, city bonuses ⚔️.
+if failed, NPC can die, be injured, or lose resources 💪.
+depending on contract type, different bonuses: defense contracts boost defense, trade contracts bring more resources. unlimited contracts cannot be run at once, requires strategy. contracts are city-specific—if you have no NPC in that city, you can’t take the contract. system contracts can be simple ones (gather wood, stone) or advanced ones (teacher, doctor) depending on city development.
+
+MANDATORY CONTRACTS
+these remain on the panel until completed, unlike normal contracts where you can skip/delete. mandatory contracts cannot be removed. they have red card backs. examples: rebellion due to high taxes, attack from another clan, giant/magical creature invasion.
+
+ADDING NEW NPCs
+players can recruit new characters via city hiring (better city = better NPCs), mission rewards, training school (school quality matters), or random events 🌆. each addition has cost and group size is limited. a recruit appears in contract panel like a contract card, with an X button. if pressed, it disappears. if you press recruit button, it transforms into a normal NPC card without X.
+
+UI
+contracts at top, NPCs at bottom. drag NPCs onto contracts. you can also set auto-assign for recurring contracts. contracts can be deleted. contracts may come from city or system. the more developed a city, the more contract types appear.
+
+TRADE CONTRACTS
+NPCs transport goods between cities, selling them with dynamic prices based on supply/demand 🌆. player chooses NPC, goods, and route. duration and risk depend on NPC stats. 🚚
+on completion, asynchronous report shows success, income, XP. keeps economy alive through strategy and automation.
+
+UPGRADE CONTRACTS
+horse cart upgrades shorten distances, increase cargo limits.
+
+ITEM CONTRACTS
+when a contract ends, it can become a reward contract if it has a prize. card background turns yellow. example: reward = magic book. if any NPC is dragged onto it, instantly gives +Magic 10 based on reward value.

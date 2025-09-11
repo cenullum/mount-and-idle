@@ -14,23 +14,57 @@ end
 
 
 function remove_element(self, data)
-    -- 1. Druid bileşenini (butonu) Druid yönetiminden kaldır
-    self.druid:remove(data.button_component)
-
-    -- 2. İlgili veriyi `drop_zones` tablosundan bul ve sil (indekse güvenme!)
+    -- Contract'ta hero var mı kontrol et
+    local assigned_hero = nil
     for i, zone in ipairs(self.drop_zones) do
         if zone.node == data.root then
-            table.remove(self.drop_zones, i)
-            self.contract_grid:remove(i)
-            break -- Elemanı bulduktan sonra döngüden çık
+            assigned_hero = zone.assigned_hero
+            break
         end
     end
 
-    -- 3. GUI düğümünü ve altındaki her şeyi sil
-    -- grid:remove() çağrısına gerek yok, bind_grid bunu halleder.
-    gui.delete_node(data.root)
+    if assigned_hero then
+        -- Hero varsa onu orijinal pozisyonuna geri gönder
+        local hero_drag_data = self.element_drag_data[assigned_hero]
+        if hero_drag_data then
+            gui.set_parent(assigned_hero, hero_drag_data.parent, true)
+            gui.animate(assigned_hero, "position", hero_drag_data.start_position, gui.EASING_OUTBACK, 0.3)
+            print("Hero orijinal pozisyonuna geri gönderildi:", assigned_hero)
+        end
+        
+        -- Zone'dan hero assignment'ını kaldır
+        for i, zone in ipairs(self.drop_zones) do
+            if zone.node == data.root then
+                zone.assigned_hero = nil
+                zone.is_active = true -- Zone'u tekrar aktif yap
+                break
+            end
+        end
+    else
+        -- Hero yoksa contract'ı animasyonla sil
+        -- 1. Önce fade out animasyonu yap
+        gui.animate(data.root, "color.w", 0, gui.EASING_OUTSINE, 0.3, 0, function()
+            -- Animasyon tamamlandığında silme işlemlerini yap
+            
+            -- 2. Druid bileşenini (butonu) Druid yönetiminden kaldır
+            self.druid:remove(data.button_component)
 
-    print("Eleman başarıyla silindi:", data.root)
+            -- 3. İlgili veriyi `drop_zones` tablosundan bul ve sil (indekse güvenme!)
+            for i, zone in ipairs(self.drop_zones) do
+                if zone.node == data.root then
+                    table.remove(self.drop_zones, i)
+                    self.contract_grid:remove(i)
+                    break -- Elemanı bulduktan sonra döngüden çık
+                end
+            end
+
+            -- 4. GUI düğümünü ve altındaki her şeyi sil
+            -- grid:remove() çağrısına gerek yok, bind_grid bunu halleder.
+            gui.delete_node(data.root)
+
+            print("Contract başarıyla silindi:", data.root)
+        end)
+    end
 end
 
 local function add_contract_element(self, data)
@@ -64,6 +98,7 @@ local function add_contract_element(self, data)
         hover_color = vmath.vector4(1, 1, 1, 0.4),
         is_hovered = false,
         is_active = true,
+        assigned_hero = nil, -- Track which hero is assigned to this contract
     }
 end
 
@@ -88,10 +123,10 @@ local function add_hero_element(self, data)
         gui.set(element_drag_data.drag.node, "position.x", position_x + dx)
         gui.set(element_drag_data.drag.node, "position.y", position_y + dy)
         
-        -- Hover kontrolü: aktif drop zone'lar üzerinde mi?
+        -- Hover kontrolü: aktif drop zone'lar üzerinde mi? (sadece hero atanmamış olanlar)
 
         for _, zone in ipairs(self.drop_zones) do
-            if zone.is_active then
+            if zone.is_active and not zone.assigned_hero then
                 local is_over = gui.pick_node(zone.node, touch.x, touch.y)
                 if is_over and not zone.is_hovered then
                     zone.is_hovered = true
@@ -118,7 +153,7 @@ local function add_hero_element(self, data)
         local dropped_zone = nil
         if touch then
             for _, zone in ipairs(self.drop_zones) do
-                if zone.is_active and gui.pick_node(zone.node, touch.x, touch.y) then
+                if zone.is_active and not zone.assigned_hero and gui.pick_node(zone.node, touch.x, touch.y) then
                     dropped_zone = zone
                     break
                 end
@@ -129,15 +164,28 @@ local function add_hero_element(self, data)
             if self.on_item_dropped then
                 self:on_item_dropped(dropped_zone.name, root)
             end
+            -- Hero'yu zone'a ata
+            dropped_zone.assigned_hero = root
+            dropped_zone.is_active = false -- Zone'u inaktif yap (daha fazla hero kabul etmesin)
+            
             -- Zone'a parent et ve hedef konuma animasyonla (x hizalı, y 50px aşağı)
             gui.set_parent(root, dropped_zone.node, true)
             local current_pos = gui.get_position(element_drag_data.drag.node)
-            local target = vmath.vector3(0, -50, current_pos.z)
+            local target = vmath.vector3(0, -100, current_pos.z)
             gui.animate(element_drag_data.drag.node, "position", target, gui.EASING_OUTBACK, 0.25)
             -- Drop animasyonu (zone feedback)
             gui.set_scale(dropped_zone.node, vmath.vector3(1.2))
             gui.animate(dropped_zone.node, "scale", vmath.vector3(1), gui.EASING_OUTBACK, 0.3)
         else
+            -- Hero bir contract'tan geri alınıyor mu kontrol et
+            for _, zone in ipairs(self.drop_zones) do
+                if zone.assigned_hero == root then
+                    zone.assigned_hero = nil
+                    zone.is_active = true -- Zone'u tekrar aktif yap
+                    break
+                end
+            end
+            
             -- Hover efektlerini sıfırla ve orijinal parent/pozisyona dön
             gui.animate(element_drag_data.drag.node, "position", element_drag_data.start_position, gui.EASING_OUTBACK, 0.3)
             gui.set_parent(root, element_drag_data.parent or nil, true)
