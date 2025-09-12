@@ -10,4 +10,13 @@ images {
 images {
   image: "/druid/images/panels/ui_circle_64.png"
 }
+images {
+  image: "/main/images/icons/panel.png"
+}
+images {
+  image: "/druid/images/pixel.png"
+}
+images {
+  image: "/main/images/icons/delete.png"
+}
 extrude_borders: 2

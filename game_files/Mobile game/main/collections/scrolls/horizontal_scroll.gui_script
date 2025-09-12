@@ -1,5 +1,8 @@
 local druid = require("druid.druid")
 local data_manager = require("main.data_manager")
+local monarch = require "monarch.monarch"
+
+
 
 function handle_drag_move(drag_component,dx, dy)
     -- Bileşenin bağlı olduğu düğümü al
@@ -68,12 +71,17 @@ function remove_element(self, data)
     end
 end
 
+
+
+
 local function add_contract_element(self, data)
     local prefab_nodes = gui.clone_tree(self.prefab)
     local root = prefab_nodes["box"]
     gui.set_enabled(root, true)
     local contract_name = prefab_nodes["contract_name"]
     local destroy_button = prefab_nodes["destroy_button"]
+
+
 
     -- ÖNEMLİ: Buton bileşenini bir değişkende sakla
     local button_component = self.druid:new_button(destroy_button)
@@ -111,6 +119,10 @@ local function add_contract_element(self, data)
 end
 
 
+local function on_timer_finished(self, timer,timer_node)
+    gui.set_visible(timer_node, false)
+end
+
 local function add_hero_element(self, data)
     local prefab_nodes = gui.clone_tree(self.prefab)
     local root = prefab_nodes["box"]
@@ -130,7 +142,7 @@ local function add_hero_element(self, data)
     
     self.hero_grid:add(root)
 
-    
+
     -- Create drag data for this specific element
     local element_drag_data = {}
     element_drag_data.parent=gui.get_parent(root)
@@ -189,6 +201,7 @@ local function add_hero_element(self, data)
             gui.set_parent(root, dropped_zone.node, true)
             local current_pos = gui.get_position(element_drag_data.drag.node)
             local target = vmath.vector3(0, -100, current_pos.z)
+            element_drag_data.timer=self.druid:new_timer(prefab_nodes["timer"], 60,0,on_timer_finished)
             gui.animate(element_drag_data.drag.node, "position", target, gui.EASING_OUTBACK, 0.25)
             -- Drop animasyonu (zone feedback)
             gui.set_scale(dropped_zone.node, vmath.vector3(1.2))
@@ -222,6 +235,10 @@ local function add_hero_element(self, data)
 
 end
 
+local function on_click(self,params,button)
+    msg.post("scene_manager:/scene_loader#monarch",params)
+end
+
 function init(self)
     -- Initialize data manager first
     data_manager.init()
@@ -229,7 +246,7 @@ function init(self)
     self.druid = druid.new(self)
     self.hero_scroll = self.druid:new_scroll("hero_scroll", "hero_content")
     self.contract_scroll = self.druid:new_scroll("contract_scroll", "contract_content")
-
+    self.map_button = self.druid:new_button("map_button", on_click,"map_menu")
 
     self.drag_parent = gui.get_node("drag_parent")
     print(self.drag_parent," drag_parent")

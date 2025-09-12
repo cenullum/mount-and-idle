@@ -1,0 +1,379 @@
+local druid = require("druid.druid")
+local monarch = require "monarch.monarch"
+
+local function on_click(self,params,button)
+    msg.post("scene_manager:/scene_loader#monarch",params)
+end
+
+
+function init(self)
+    self.druid = druid.new(self)
+    msg.post(".", "acquire_input_focus")
+    self.button = self.druid:new_button("back_button", on_click,"back")
+    
+    -- Initialize random seed
+    math.randomseed(os.time())
+
+    self.scroll = self.druid:new_scroll("content_view", "background")
+    
+    -- Make content_view visible and generate the Voronoi map
+    local content_view = gui.get_node("content_view")
+    gui.set_enabled(content_view, true)
+    local root = gui.get_node("root")
+    gui.set_enabled(root, true)
+    
+    generate_map(self)
+end
+
+function final(self)
+    self.druid:final()
+end
+
+function update(self, dt)
+    self.druid:update(dt)
+end
+
+function on_message(self, message_id, message, sender)
+    self.druid:on_message(message_id, message, sender)
+end
+
+function on_input(self, action_id, action)
+    return self.druid:on_input(action_id, action)
+end
+
+local function draw_line(go_id, from, to)
+    local dx = to.x - from.x
+    local dy = to.y - from.y
+    local length = math.sqrt(dx*dx + dy*dy)
+
+    -- sprite ölçeğini ayarla
+    go.set_scale(vmath.vector3(length, 1, 1), go_id)
+
+    -- sprite açısını ayarla
+    local angle = math.atan2(dy, dx)
+    go.set_rotation(vmath.quat_rotation_z(angle), go_id)
+
+    -- sprite pozisyonunu ayarla
+    go.set_position((from + to) * 0.5, go_id)
+end
+
+-- Syllable pool for city name generation
+local SYLLABLES = {
+    "sha", "ko", "sa", "be", "ra", "te", "li", "ma", "no", "va",
+    "zi", "da", "fu", "ge", "hi", "ju", "ka", "lo", "mu", "ne",
+    "pi", "qu", "ro", "si", "tu", "we", "xi", "ya", "zo", "ba",
+    "ce", "di", "fe", "go", "hu", "je", "ki", "la", "me", "ni",
+    "or", "pa", "ri", "su", "to", "vi", "xa", "ye", "zu", "ber"
+}
+
+-- City clans and their text colors
+local CITY_CLANS = {
+    "red", "green", "blue", "white"
+}
+
+local CLAN_COLORS = {
+    red = vmath.vector4(1, 0.2, 0.2, 1),     -- Red
+    green = vmath.vector4(0.2, 1, 0.2, 1),   -- Green  
+    blue = vmath.vector4(0.2, 0.2, 1, 1),    -- Blue
+    white = vmath.vector4(1, 1, 1, 1)         -- White
+}
+
+-- Generate random city name from syllables
+local function generate_city_name()
+    local syllable_count = math.random(2, 4)
+    local name = ""
+    
+    -- Pick random syllables
+    for i = 1, syllable_count do
+        local syllable = SYLLABLES[math.random(#SYLLABLES)]
+        if i == 1 then
+            -- Capitalize first syllable
+            syllable = syllable:sub(1,1):upper() .. syllable:sub(2)
+        end
+        name = name .. syllable
+    end
+    
+    -- Random chance to add suffix
+    if math.random() < 0.3 then
+        local suffixes = {"land", "istan", "burg", "heim", "stad", "ton"}
+        name = name .. suffixes[math.random(#suffixes)]
+    end
+    
+    return name
+end
+
+-- Calculate distance between two points
+local function distance(p1, p2)
+    local dx = p1.x - p2.x
+    local dy = p1.y - p2.y
+    return math.sqrt(dx * dx + dy * dy)
+end
+
+-- Simple Voronoi cell generation using relaxed random points
+local function generate_voronoi_points(bounds, num_cities)
+    local points = {}
+    local margin = 200 -- Increased margin from edges for better spacing
+    
+    -- Generate initial random points
+    for i = 1, num_cities do
+        local point = {
+            x = math.random(bounds.min_x + margin, bounds.max_x - margin),
+            y = math.random(bounds.min_y + margin, bounds.max_y - margin),
+            id = i
+        }
+        table.insert(points, point)
+    end
+    
+    -- Lloyd's relaxation for better distribution (2 iterations)
+    for iter = 1, 2 do
+        local new_points = {}
+        
+        for i, point in ipairs(points) do
+            local sum_x, sum_y, count = 0, 0, 0
+            
+            -- Sample points around this Voronoi cell (much wider spacing for better distribution)
+            for sample_x = bounds.min_x, bounds.max_x, 50 do
+                for sample_y = bounds.min_y, bounds.max_y, 50 do
+                    local closest_dist = math.huge
+                    local closest_point = nil
+                    
+                    -- Find which Voronoi cell this sample belongs to
+                    for _, p in ipairs(points) do
+                        local dist = distance({x = sample_x, y = sample_y}, p)
+                        if dist < closest_dist then
+                            closest_dist = dist
+                            closest_point = p
+                        end
+                    end
+                    
+                    -- If this sample belongs to current point's cell
+                    if closest_point and closest_point.id == point.id then
+                        sum_x = sum_x + sample_x
+                        sum_y = sum_y + sample_y
+                        count = count + 1
+                    end
+                end
+            end
+            
+            -- Move point to centroid of its cell
+            if count > 0 then
+                table.insert(new_points, {
+                    x = sum_x / count,
+                    y = sum_y / count,
+                    id = point.id
+                })
+            else
+                table.insert(new_points, point)
+            end
+        end
+        
+        points = new_points
+    end
+    
+    return points
+end
+
+-- Find neighboring cities for Voronoi connections
+local function find_neighbors(cities, bounds)
+    local neighbors = {}
+    
+    -- Initialize neighbor lists
+    for i, city in ipairs(cities) do
+        neighbors[i] = {}
+    end
+    
+    -- For each pair of cities, check if they share Voronoi boundary
+    for i = 1, #cities do
+        for j = i + 1, #cities do
+            local city_a = cities[i]
+            local city_b = cities[j]
+            local shares_boundary = false
+            
+            -- Sample points between the two cities (more steps for better detection)
+            local steps = 30
+            for step = 1, steps do
+                local t = step / (steps + 1)
+                local sample_x = city_a.x + t * (city_b.x - city_a.x)
+                local sample_y = city_a.y + t * (city_b.y - city_a.y)
+                
+                -- Find closest two cities to this sample point
+                local distances = {}
+                for k, city in ipairs(cities) do
+                    table.insert(distances, {
+                        dist = distance({x = sample_x, y = sample_y}, city),
+                        city_index = k
+                    })
+                end
+                
+                -- Sort by distance
+                table.sort(distances, function(a, b) return a.dist < b.dist end)
+                
+                -- If the two closest cities are our pair, they share boundary
+                if (distances[1].city_index == i and distances[2].city_index == j) or
+                   (distances[1].city_index == j and distances[2].city_index == i) then
+                    -- Check if the distance between first and second is small enough (much larger threshold for wider spacing)
+                    if distances[2].dist - distances[1].dist < 80 then
+                        shares_boundary = true
+                        break
+                    end
+                end
+            end
+            
+            if shares_boundary then
+                table.insert(neighbors[i], j)
+                table.insert(neighbors[j], i)
+            end
+        end
+    end
+    
+    return neighbors
+end
+
+-- Main map generation function
+function generate_map(self)
+    -- Map bounds - make it larger than content_view for scrolling
+    local content_view = gui.get_node("content_view")
+    local background = gui.get_node("background")
+    local background_size = gui.get_size(background)
+    print("background_size ",background_size)
+    
+    -- Use background size for map bounds (background is 3000x3000)
+    local bounds = {
+        min_x = -background_size.x / 2,
+        max_x = background_size.x / 2,
+        min_y = -background_size.y / 2,
+        max_y = background_size.y / 2
+    }
+    
+    -- Generate fewer cities for better spacing (8-12 cities)
+    local num_cities = math.random(10, 20)
+    local city_points = generate_voronoi_points(bounds, num_cities)
+    
+    -- Create city data with clans and levels
+    local cities = {}
+    for i, point in ipairs(city_points) do
+        local city = {
+            x = point.x,
+            y = point.y,
+            name = generate_city_name(),
+            clan = CITY_CLANS[math.random(#CITY_CLANS)],
+            level = math.random(1, 5),
+            node = nil,
+            text_node = nil
+        }
+        table.insert(cities, city)
+    end
+    
+    -- Find neighboring connections
+    local neighbors = find_neighbors(cities, bounds)
+    
+    -- Clear existing map elements
+    if self.map_cities then
+        for _, city in ipairs(self.map_cities) do
+            if city.node then
+                gui.delete_node(city.node)
+            end
+        end
+    end
+    
+    if self.map_connections then
+        for _, connection in ipairs(self.map_connections) do
+            if connection.node then
+                gui.delete_node(connection.node)
+            end
+        end
+    end
+    
+    -- Create city GUI nodes
+    self.map_cities = {}
+    self.map_connections = {}
+    
+    local city_prefab = gui.get_node("city_prefab")
+    
+    for i, city in ipairs(cities) do
+        -- Clone city prefab tree
+        local city_tree = gui.clone_tree(city_prefab)
+        local city_node = city_tree["city_prefab"]  -- The root city node
+        local text_node = city_tree["city_name"]    -- The text child node
+        
+        gui.set_parent(city_node, background)
+        gui.set_enabled(city_node, true)
+        gui.set_position(city_node, vmath.vector3(city.x, city.y, 0.4))
+        
+        -- Set city texture based on clan and level
+        local texture_name = city.clan .. "_city_level_" .. city.level
+        gui.set_texture(city_node, "locations")
+        gui.play_flipbook(city_node, texture_name)
+        
+        -- Setup city name text
+        if text_node then
+            gui.set_text(text_node, city.name)
+            gui.set_color(text_node, CLAN_COLORS[city.clan])
+        end
+        
+        city.node = city_node
+        city.text_node = text_node
+        
+        table.insert(self.map_cities, city)
+    end
+    
+    -- Create connection lines
+    local line_prefab = gui.get_node("line_prefab")
+    
+    for i, neighbor_list in pairs(neighbors) do
+        local city_a = self.map_cities[i]
+        
+        for _, j in ipairs(neighbor_list) do
+            if i < j then -- Avoid duplicate lines
+                local city_b = self.map_cities[j]
+                
+                -- Clone line prefab
+                local line_node = gui.clone(line_prefab)
+                gui.set_parent(line_node, background)
+                gui.set_enabled(line_node, true)
+                
+                -- Calculate line from city edge to city edge
+                local city_center_a = vmath.vector3(city_a.x, city_a.y, 0)
+                local city_center_b = vmath.vector3(city_b.x, city_b.y, 0)
+                
+                -- City icon radius (425px * 0.3 scale = 127.5px diameter, so ~64px radius)
+                local city_radius = 80
+                
+                -- Calculate direction vector
+                local direction = city_center_b - city_center_a
+                local total_distance = vmath.length(direction)
+                local normalized_direction = vmath.normalize(direction)
+                
+                -- Calculate start and end points (from edge to edge)
+                local from = city_center_a + normalized_direction * city_radius
+                local to = city_center_b - normalized_direction * city_radius
+                
+                -- Calculate actual line length
+                local line_length = total_distance - (2 * city_radius)
+                
+                -- Only draw line if cities are far enough apart
+                if line_length > 0 then
+                    -- Set line scale to actual line length
+                    gui.set_scale(line_node, vmath.vector3(line_length/4.5, 2, 1)) -- 2 pixel thick line
+                    
+                    local angle = math.atan2(direction.y, direction.x)
+                    gui.set_rotation(line_node, vmath.quat_rotation_z(angle))
+                    
+                    -- Position line at the center between the edge points
+                    local line_position = (from + to) * 0.5
+                    line_position.z=0.2
+                    gui.set_position(line_node, line_position)
+                else
+                    -- Cities too close, don't draw line
+                    gui.set_enabled(line_node, false)
+                end
+            -- gui.set_color(line_node, vmath.vector4(0.6, 0.6, 0.6, 0.8)) -- Gray connection lines
+                
+                table.insert(self.map_connections, {node = line_node})
+            end
+        end
+    end
+    
+    print("Generated Voronoi map with " .. #self.map_cities .. " cities and " .. #self.map_connections .. " connections")
+    print("Number of cities generated: " .. #self.map_cities)
+end

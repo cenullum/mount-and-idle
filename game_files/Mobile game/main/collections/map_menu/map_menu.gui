@@ -1,0 +1,159 @@
+script: "/main/collections/map_menu/map_menu.gui_script"
+fonts {
+  name: "druid_text_regular"
+  font: "/druid/fonts/druid_text_regular.font"
+}
+textures {
+  name: "icons"
+  texture: "/main/images/atlases/icons.atlas"
+}
+textures {
+  name: "locations"
+  texture: "/main/images/atlases/locations.atlas"
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_BOX
+  id: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+  visible: false
+}
+nodes {
+  position {
+    x: 320.0
+    y: 521.0
+  }
+  size {
+    x: 600.0
+    y: 1000.0
+  }
+  color {
+    x: 0.467
+    y: 0.29
+    z: 0.11
+  }
+  type: TYPE_BOX
+  id: "content_view"
+  parent: "root"
+  inherit_alpha: true
+  clipping_mode: CLIPPING_MODE_STENCIL
+}
+nodes {
+  position {
+    z: -0.2
+  }
+  size {
+    x: 1500.0
+    y: 1500.0
+  }
+  type: TYPE_BOX
+  texture: "locations/seamless_grass"
+  id: "background"
+  parent: "content_view"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 547.0
+    y: 1085.0
+  }
+  size {
+    x: 143.0
+    y: 64.0
+  }
+  color {
+    x: 0.302
+    y: 0.502
+    z: 0.302
+  }
+  type: TYPE_BOX
+  texture: "icons/ui_circle_64"
+  id: "back_button"
+  parent: "root"
+  inherit_alpha: true
+  slice9 {
+    x: 32.0
+    y: 32.0
+    z: 32.0
+    w: 32.0
+  }
+}
+nodes {
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "Back\n"
+  ""
+  font: "druid_text_regular"
+  id: "text"
+  parent: "back_button"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 35.0
+    y: 25.0
+    z: 0.2
+  }
+  color {
+    z: 0.4
+  }
+  type: TYPE_BOX
+  texture: "icons/pixel"
+  id: "line_prefab"
+  parent: "root"
+  inherit_alpha: true
+  alpha: 0.48
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    x: -1455.0
+    y: 2489.0
+    z: 0.3
+  }
+  scale {
+    x: 0.3
+    y: 0.3
+    z: 0.3
+  }
+  type: TYPE_BOX
+  texture: "locations/white_city_level_1"
+  id: "city_prefab"
+  parent: "root"
+  inherit_alpha: true
+  size_mode: SIZE_MODE_AUTO
+}
+nodes {
+  position {
+    y: -260.33334
+    z: 0.8
+  }
+  scale {
+    x: 2.0
+    y: 2.0
+  }
+  size {
+    x: 200.0
+    y: 100.0
+  }
+  type: TYPE_TEXT
+  text: "CITY NAME\n"
+  ""
+  font: "druid_text_regular"
+  id: "city_name"
+  parent: "city_prefab"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT
+materials {
+  name: "gui_tiling_node"
+  material: "/druid/custom/tiling_node/gui_tiling_node.material"
+}

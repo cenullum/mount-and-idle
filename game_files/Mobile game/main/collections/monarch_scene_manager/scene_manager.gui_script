@@ -4,7 +4,6 @@ function init(self)
     msg.post(".", "acquire_input_focus")
     monarch.debug()
     msg.post("#","init_monarch")
-    print("hello world")
    
 end
 
@@ -21,6 +20,11 @@ function on_message(self, message_id, message, sender)
     elseif message_id == hash("gameplay_menu") then
         monarch.show("gameplay_menu")
         print("gameplay_menu")
+    elseif message_id == hash("map_menu") then
+        monarch.show("map_menu")
+        print("map_menu")
+    elseif message_id == hash("back") then
+        monarch.back()
     end
 end
 
